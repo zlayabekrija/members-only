@@ -1,0 +1,14 @@
+<div class="container w-75">
+<% @posts.each do |post| %>
+<div class="card mb-2">
+<div class="card-body">
+<h5>Title: <%= post.title %></h5>
+<p>Content: <%= post.content %></p>
+<small>Created <%= time_ago_in_words post.created_at %> ago</small>
+<% if logged_in %>
+<small>by <%= post.author.to_s.capitalize %></small>
+<% end %>
+</div>
+</div>
+<% end %>
+</div>

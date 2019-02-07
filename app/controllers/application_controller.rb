@@ -1,33 +1,52 @@
 class ApplicationController < ActionController::Base
   helper_method :logged_in
-    
-  def login
-    user = User.find_by_email(params[:session][:email])
-    if user && user.authenticate(params[:session][:password])
-      current_user(user)
-      current_user
-      if cookies.permanent[:remember_token]
-        @current_user.update_attribute(:remember_token, user.generate_token)
-        cookies.permanent[:remember_token] = @current_user.remember_token
-      end
-    end
-  end
-  
-  def current_user
-      @current_user ||= User.find_by(remember_token: cookies.permanent[:remember_token])
-  end
-  
-  def current_user=(user)
-      @current_user = user
-  end
-  
-  def logged_in
-    !@current_user.nil?
-  end
-  
-  def logout
-    cookies.permanent[:remember_token] = nil
-    @current_user = nil
+  before_action :current_u
+  def signed_up(user,password)
+    @user = user
+    @password = password
+    login
   end
 
+  def login
+    if !@user.nil?
+      user = User.find(@user[:id])
+    else
+      user = User.find_by_email(params[:session][:email])
+    end
+      if user && (user.authenticate(@password) || user.authenticate(params[:session][:password]))
+        if cookies[:remember_token].nil? 
+          user.update_attribute(:remember_token, user.generate_token)
+          cookies.permanent[:remember_token] = user[:remember_token]
+          current(user)
+          redirect_to root_path
+        end
+      else
+        flash[:danger] = 'Invalid email or password'
+        render 'new'
+      end
+  end
+
+  def current(user)
+    @current_user = user
+  end
+  
+  def current_u
+      @current_user ||= User.find_by(remember_token: cookies.permanent[:remember_token])
+  end
+
+  
+  def logged_in
+   !current_u.nil?
+  end
+
+  def logout
+   cookies.delete :remember_token
+    @current_user = nil
+   
+  end
+  def hello
+   @current_user.name
+  end
+  
+ 
 end

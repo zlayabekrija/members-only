@@ -1,0 +1,17 @@
+<div class="container w-50">
+<% if @post.errors.any? %>
+    <% @post.errors.full_messages.each do |e| %>
+    <ul>
+    <li><%= e %></li>
+    </ul>
+    <% end %>
+<% end %>
+<%= form_for (@post) do |f| %>
+<%= f.label :title %>
+<%= f.text_field :title,class:'form-control' %>
+<%= f.label :content %>
+<%= f.text_area :content,class:'form-control' %>
+<%= f.hidden_field :author,value: @current_user.nil? ? 'Anonymous' : @current_user.name %>
+<%= f.submit 'Create Post',class:'btn btn-primary mt-2 btn-block' %>
+<% end %>
+</div>
