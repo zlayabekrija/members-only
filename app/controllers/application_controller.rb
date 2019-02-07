@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
           redirect_to root_path
         end
       else
-        flash[:danger] = 'Invalid email or password'
+        flash.now[:danger] = 'Invalid email or password'
         render 'new'
       end
   end
