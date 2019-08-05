@@ -1,24 +1,19 @@
-# README
+### Members only 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##### Small project built in Ruby on Rails by remote pair programming.
 
-Things you may want to cover:
+Project was built for learning and testing knowledge of basic autorization in RoR on small redit like project.
 
-* Ruby version
+***Steps to run the project***
 
-* System dependencies
+- clone project with git clone
 
-* Configuration
+- run bundle install (or just bundle) to install gems needed for projects
 
-* Database creation
+- run rails db:migrate to create migrations
 
-* Database initialization
+- run rails srever (or just rails s) to run project localy
 
-* How to run the test suite
+Comment, fork, suggest ...
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+###### Authors: [Zlaya](https://github.com/zlayabekrija) and [inhaq](https://github.com/inhaq)
